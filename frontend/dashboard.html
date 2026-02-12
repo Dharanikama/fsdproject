@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <h2>🩺 SHA</h2>
+  <ul>
+    <li onclick="go('dashboard.html')">Dashboard</li>
+    <li onclick="go('symptoms.html')">Symptoms</li>
+    <li onclick="go('medicines.html')">Medicines</li>
+    <li onclick="go('appointments.html')">Appointments</li>
+    <li onclick="go('analytics.html')">Analytics</li>
+  </ul>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+
+  <div class="navbar">
+    <h2>Dashboard</h2>
+    <button onclick="logout()">Logout</button>
+  </div>
+
+  <div class="cards">
+    <div class="card blue">
+      <h3>Health Score</h3>
+      <p>85%</p>
+    </div>
+
+    <div class="card green">
+      <h3>Water Intake</h3>
+      <p>2.5L</p>
+    </div>
+
+    <div class="card orange">
+      <h3>Appointments</h3>
+      <p>2 Upcoming</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function logout() {
+  localStorage.removeItem("token");
+  window.location.href = "index.html";
+}
+
+function go(page) {
+  window.location.href = page;
+}
+</script>
+
+</body>
+</html>

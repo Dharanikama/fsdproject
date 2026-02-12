@@ -1,0 +1,83 @@
+<body>
+
+<div class="sidebar">
+  <h2>🩺 SHA</h2>
+  <ul>
+    <li onclick="go('dashboard.html')">Dashboard</li>
+    <li class="active">Symptoms</li>
+    <li onclick="go('medicines.html')">Medicines</li>
+    <li onclick="go('appointments.html')">Appointments</li>
+    <li onclick="go('analytics.html')">Analytics</li>
+  </ul>
+</div>
+
+<div class="main">
+
+  <div class="navbar">
+    <h2>Symptoms Checker</h2>
+    <button onclick="logout()">Logout</button>
+  </div>
+
+  <div class="symptom-box">
+    <h3>Select Your Symptoms</h3>
+
+    <div class="symptoms-grid">
+      <label><input type="checkbox" value="fever"> Fever</label>
+      <label><input type="checkbox" value="cough"> Cough</label>
+      <label><input type="checkbox" value="headache"> Headache</label>
+      <label><input type="checkbox" value="nausea"> Nausea</label>
+      <label><input type="checkbox" value="chestpain"> Chest Pain</label>
+      <label><input type="checkbox" value="fatigue"> Fatigue</label>
+    </div>
+
+    <button onclick="checkSymptoms()">Check</button>
+
+    <div id="result" class="result-box"></div>
+  </div>
+
+</div>
+
+<script>
+function go(page) {
+  window.location.href = page;
+}
+
+function logout() {
+  localStorage.removeItem("token");
+  window.location.href = "index.html";
+}
+
+function checkSymptoms() {
+  const checked = document.querySelectorAll('input[type="checkbox"]:checked');
+  const selected = Array.from(checked).map(cb => cb.value);
+
+  let prediction = "No major issue detected.";
+  let severity = "Low";
+
+  if (selected.includes("fever") && selected.includes("cough")) {
+    prediction = "Possible Flu";
+    severity = "Medium";
+  }
+  else if (selected.includes("headache") && selected.includes("nausea")) {
+    prediction = "Possible Migraine";
+    severity = "Medium";
+  }
+  else if (selected.includes("chestpain")) {
+    prediction = "Possible Heart Issue";
+    severity = "High";
+  }
+
+  let color = "green";
+  if (severity === "Medium") color = "orange";
+  if (severity === "High") color = "red";
+
+  document.getElementById("result").innerHTML = `
+    <div style="margin-top:20px;padding:20px;border-radius:10px;background:${color};color:white;">
+      <h3>${prediction}</h3>
+      <p>Severity: ${severity}</p>
+    </div>
+  `;
+}
+</script>
+
+</body>
